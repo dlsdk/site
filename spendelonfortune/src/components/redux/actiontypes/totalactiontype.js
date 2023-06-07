@@ -1,0 +1,4 @@
+export const INCREASE_PRICE = "INCREASE_PRICE";
+export const ADD_TO_TOTAL = "ADD_TO_TOTAL";
+export const REMOVE_TO_TOTAL = "REMOVE_TO_TOTAL";
+export const DECREASE_PRICE = "DECREASE_PRICE";
