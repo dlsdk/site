@@ -1,7 +1,7 @@
 import totoalActionType from "../actiontypes";
 import products from "../products_list";
 
-const {INCREASE_PRICE, ADD_TO_TOTAL, REMOVE_TO_TOTAL,DECREASE_PRICE} = totoalActionType;
+const {INCREASE_PRICE, ADD_TO_TOTAL, REMOVE_TO_TOTAL,DECREASE_PRICE} = totoalActionType.total;
 
 
 const totalreducer = (state=products,action) =>{
@@ -9,7 +9,7 @@ const totalreducer = (state=products,action) =>{
         case INCREASE_PRICE:
           return {
            ...state,
-           productslist: state.productslist.map((product) => action.payload === product.name ? {...product,alınan:product.alınan+1}  : product ),
+           productslist: state.productslist.map((product) => action.payload.name === product.name ? {...product,alınan:action.payload.alınan}  : product ),
           };
         case ADD_TO_TOTAL:
           return {
@@ -23,10 +23,14 @@ const totalreducer = (state=products,action) =>{
         case DECREASE_PRICE:
           return{
             ...state,
-            productslist: state.productslist.map((product) => action.payload.name === product.name ? {...product,alınan:product.alınan-1}  : product ),
+            productslist: state.productslist.map((product) => action.payload.name === product.name ? {...product,alınan:action.payload.alınan}  : product ),
           }
         default:
-          return state;
+          {
+            console.log("burda");
+            return state;
+          }
+          
       }
 }
 

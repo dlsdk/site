@@ -1,11 +1,15 @@
 nav{
-    height: fit-content;
-    padding: 1rem 2%;
-    position: fixed;
+   height: fit-content;
+     padding: 1rem 10%;
+    position: sticky!important;
     background-color: rgba(104, 113, 120, 1);
+    top:0;
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    z-index: 2;
 }
 
-img{
+.img{
     width: 380px!important;
     height: 380px!important;
     max-width: 380px;
@@ -14,9 +18,9 @@ img{
 
 .products{
     display: flex!important;
-    flex-direction: row!important;
     flex-wrap: wrap!important;
     justify-content: center;
+    
 }
 
 .cardb{
@@ -26,7 +30,7 @@ img{
     border-bottom-left-radius: 5px;
 }
 .card{
-    margin: 2rem 3rem;
+    margin: 3rem 2rem;
     object-fit: cover;
     text-align: center;
     max-width: 380px;
@@ -36,12 +40,8 @@ img{
     justify-content: center;
     align-items: center;
 }
-p{
-    font-size: 1rem;
+.p{
+    font-size: 1.2rem;
     color: white;
-    font-family: 'Poppins', sans-serif;
-    display: block;
-
-    text-align: center;
 
 }

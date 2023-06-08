@@ -1,6 +1,7 @@
 import totoalActionType from "../actiontypes";
 
 const INCREASE_PRICE=(val) => {
+    console.log("val : " , val);
     return {
         type:totoalActionType.total.INCREASE_PRICE, payload:val
     }
