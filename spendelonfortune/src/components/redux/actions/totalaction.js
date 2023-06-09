@@ -1,15 +1,15 @@
 import totoalActionType from "../actiontypes";
 
-const INCREASE_PRICE=(val) => {
+const INCREASE=(val) => {
     console.log("val : " , val);
     return {
-        type:totoalActionType.total.INCREASE_PRICE, payload:val
+        type:totoalActionType.total.INCREASE, payload:val
     }
 } 
 
-const DECREASE_PRICE=(val) => {
+const DECREASE=(val) => {
     return {
-        type:totoalActionType.total.DECREASE_PRICE, payload:val
+        type:totoalActionType.total.DECREASE, payload:val
     }
 } 
 
@@ -19,12 +19,27 @@ const ADD_TO_TOTAL=(val) => {
     }
 } 
 
-const REMOVE_TO_TOTAL=(val) => {
+const PERSENT=(val) => {
     return {
-        type:totoalActionType.total.REMOVE_TO_TOTAL, payload:val
+        type:totoalActionType.total.PERSENT, payload:val
     }
 }
 
+const RECEIPT=(val) => {
+    return {
+        type:totoalActionType.total.RECEIPT, payload:val
+    }
+}
+const UPDATE_RECEIPT=(val) => {
+    return {
+        type:totoalActionType.total.UPDATE_RECEIPT, payload:val
+    }
+}
+const DELETE_RECEIPT=(val) => {
+    return {
+        type:totoalActionType.total.DELETE_RECEIPT, payload:val
+    }
+}
 
-const totalActions = {INCREASE_PRICE,DECREASE_PRICE,ADD_TO_TOTAL,REMOVE_TO_TOTAL};
+const totalActions = {INCREASE,DECREASE,ADD_TO_TOTAL,PERSENT,RECEIPT,UPDATE_RECEIPT,DELETE_RECEIPT};
 export default totalActions;

@@ -2,7 +2,7 @@ nav{
    height: fit-content;
      padding: 1rem 10%;
     position: sticky!important;
-    background-color: rgba(104, 113, 120, 1);
+    background: linear-gradient( 0deg, rgba(104, 113, 120, 1) 0%, rgba(83, 90, 95, 1) 100% );
     top:0;
     color: white;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
@@ -14,6 +14,8 @@ nav{
     height: 380px!important;
     max-width: 380px;
     object-fit: cover;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
 }
 
 .products{
@@ -26,8 +28,14 @@ nav{
 .cardb{
     background-color: rgba(104, 113, 120, 1);
     min-width: 380px;
+  
+}
+.cardbuttonsdiv{
+    background-color: rgba(104, 113, 120, 1);
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
+    padding: 0 1rem 1rem;
+    min-width: 380px;
 }
 .card{
     margin: 3rem 2rem;
@@ -36,12 +44,20 @@ nav{
     max-width: 380px;
     border-radius: 5px;
     box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
 }
 .p{
-    font-size: 1.2rem;
+    font-size: 1.4em;
     color: white;
+    margin: 0;
+}
+.sp {
+    color: white;
+    font-size: 1.1rem;
+}
 
+.buttons{
+    color: black!important;;
+    font-size: 1rem!important;
+    padding:1rem 1.5rem!important;
+    font-weight: 300 !important;
 }
