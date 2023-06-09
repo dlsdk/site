@@ -81,8 +81,13 @@ const Products = () =>{
 
     const print = () => {
         console.log("printe girdi");
-        var content = document.getElementById("printablediv");
-    
+        const divToPrint = document.getElementById("printablediv");
+        const iframe = document.createElement("iframe");
+        document.body.appendChild(iframe);
+        const ifr = iframe.contentWindow;
+        ifr.document.write(divToPrint.innerHTML);
+        iframe.contentWindow.print();
+        document.body.removeChild(iframe);
     }
 
     return (
@@ -91,12 +96,12 @@ const Products = () =>{
                 <div style={{textAlign:'center'}} className="d-flex align-items-center justify-content-center align-content-center">
                     {done ?
                         <>
-                            <p style={{margin:'0' , fontSize:'1.6rem'}}>Can't afford that!</p>
-                            <p style={{margin:'0', fontSize:'1.6rem',marginLeft:"5rem" }}>Sell something!</p>
+                            <p style={{margin:'0' , fontSize:'1.5rem'}}>Can't afford that!</p>
+                            <p style={{margin:'0', fontSize:'1.5rem',marginLeft:"3rem" }}>Sell something!</p>
                         </> :
                         <>
-                            <p style={{margin:'0' , fontSize:'1.6rem'}}>Remaining: ${totalprice.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}  USD</p>
-                            <p style={{margin:'0', fontSize:'1.6rem',marginLeft:"5rem" }}>{persentcontent}</p>
+                            <p style={{margin:'0' , fontSize:'1.5rem'}}>Remaining: ${totalprice.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}  USD</p>
+                            <p style={{margin:'0', fontSize:'1.5rem',marginLeft:"3rem" }}>{persentcontent}</p>
                         </>
                     }
                 </div>
@@ -107,15 +112,15 @@ const Products = () =>{
                 {productslist.map((products,index) => (
                     <>
                         <div key={index} className={`card ${style.card}`}>
-                            <img  className={style.img} src={products.imagesrc}/>
+                            <img  className={style.img} src={products.imagesrc} alt="productimage"/>
                             <div className={`card-body ${style.cardb}`}>
                                 <p className={` ${style.p}`}>{products.name}</p>
                                 <span className={` ${style.sp}`}> USD {products.birimfiyat.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</span>
                             </div>
                             <div className={`d-flex justify-content-between align-items-center align-content-center ${style.cardbuttonsdiv}`}>
-                                    <button className={`btn btn-primary btn-danger btn-lg ${style.buttons}`} style={{ backgroundColor: "rgb(221, 153, 153)", border:"rgb(221, 153, 153)"}} disabled={products.alınan === 0}  onClick={() => sell(products)} >Sell</button>
-                                    <p style={{margin:'0', fontSize:'1.1rem', color:'white'}}>{products.alınan}</p>
-                                    <button className={`btn btn-primary btn-lg ${style.buttons}`} style={{ backgroundColor: "rgb(158, 221, 153)", border:"rgb(158, 221, 153)"}} disabled={done} onClick={() => buy(products)} >Buy</button>
+                                    <button className={`btn btn-primary btn-md ${style.buttons}`} style={{ backgroundColor: "rgb(221, 153, 153)", border:"rgb(221, 153, 153)"}} disabled={products.alınan === 0}  onClick={() => sell(products)} >Sell</button>
+                                    <p style={{margin:'0', fontSize:'1.2rem', color:'white'}}>{products.alınan}</p>
+                                    <button className={`btn btn-primary btn-md ${style.buttons}`} style={{ backgroundColor: "rgb(158, 221, 153)", border:"rgb(158, 221, 153)"}} disabled={done} onClick={() => buy(products)} >Buy</button>
                             </div>
                         </div>  
                     </>
@@ -127,10 +132,10 @@ const Products = () =>{
                     {forreceipt.map((element,index) => (
                         <p style={{fontSize:"1.2rem"}}>{element.name} X <strong>{element.alınan}</strong> ..............$ {element.totalp.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</p>
                     ))}
-                        <p style={{textDecoration:"underline" , fontSize:"1.2rem", textDecorationThickness:"2px"}}>Total is: $ {(firsttotal-totalprice).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</p>
+                     {pageLoad===true &&  <p style={{textDecoration:"underline" , fontSize:"1.2rem", textDecorationThickness:"2px"}}>Total is: $ {(firsttotal-totalprice).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</p>}  
             </div>
             <div className="text-center">
-                <button disabled={!forreceipt} onClick={() => print()} className="btn btn-secondary btn-lg">Print</button>
+               <button  className={` btn btn-lg ${style.printbutton}`} disabled={forreceipt.length === 0} onClick={() => print()}>Print Receipt</button>
             </div>
                 
         </>

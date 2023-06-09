@@ -1,6 +1,6 @@
 nav{
-   height: fit-content;
-     padding: 1rem 10%;
+    height: fit-content;
+    padding: 1.1rem;
     position: sticky!important;
     background: linear-gradient( 0deg, rgba(104, 113, 120, 1) 0%, rgba(83, 90, 95, 1) 100% );
     top:0;
@@ -38,7 +38,7 @@ nav{
     min-width: 380px;
 }
 .card{
-    margin: 3rem 2rem;
+    margin: 1.5rem 2rem;
     object-fit: cover;
     text-align: center;
     max-width: 380px;
@@ -46,7 +46,7 @@ nav{
     box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 .p{
-    font-size: 1.4em;
+    font-size: 1.2rem;
     color: white;
     margin: 0;
 }
@@ -60,4 +60,13 @@ nav{
     font-size: 1rem!important;
     padding:1rem 1.5rem!important;
     font-weight: 300 !important;
+}
+
+.printbutton{
+    background-color: rgba(83, 90, 95, 1)!important;
+    border:rgba(83, 90, 95, 1)!important;
+    color: white!important;
+    margin: 2rem!important;
+    padding: 0.8rem 1.5rem!important;
+    font-size: 1rem!important;
 }
