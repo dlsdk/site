@@ -25,21 +25,6 @@ const PERSENT=(val) => {
     }
 }
 
-const RECEIPT=(val) => {
-    return {
-        type:totoalActionType.total.RECEIPT, payload:val
-    }
-}
-const UPDATE_RECEIPT=(val) => {
-    return {
-        type:totoalActionType.total.UPDATE_RECEIPT, payload:val
-    }
-}
-const DELETE_RECEIPT=(val) => {
-    return {
-        type:totoalActionType.total.DELETE_RECEIPT, payload:val
-    }
-}
 
-const totalActions = {INCREASE,DECREASE,ADD_TO_TOTAL,PERSENT,RECEIPT,UPDATE_RECEIPT,DELETE_RECEIPT};
+const totalActions = {INCREASE,DECREASE,ADD_TO_TOTAL,PERSENT};
 export default totalActions;

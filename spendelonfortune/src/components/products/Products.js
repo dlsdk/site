@@ -6,25 +6,12 @@ import { useState } from "react";
 const Products = () =>{
 
     const dispatch = useDispatch();
-    const { totalprice, persent, productslist, forreceipt } = useSelector(state => state.totalreducer);
+    const { totalprice, persent, productslist } = useSelector(state => state.totalreducer);
     const [pageLoad,setPageLoad] = useState(0);
     const [done,setDone] = useState(0);
     const persentcontent = pageLoad ? `You only spent ${persent.toFixed(6)}  % of the total!` : "You haven't spent a single dollar! start buying!";
     const firsttotal = 217000000000;
 
-   
-    const sell_forreceipt = (product) => {
-        
-        const newre = {
-            name : product.name,
-            alınan: product.alınan-1,
-            totalp: (product.alınan-1) * product.birimfiyat,
-        }
-        if (newre.alınan === 0)
-             dispatch(Actions.totalActions.DELETE_RECEIPT(forreceipt.filter((el) => el.name !== product.name)));
-        else if (forreceipt.find(element => element.name === product.name))
-             dispatch(Actions.totalActions.UPDATE_RECEIPT(newre));
-    }
    
     const sell = (product) => {
         if (done)
@@ -41,21 +28,8 @@ const Products = () =>{
         dispatch(Actions.totalActions.ADD_TO_TOTAL(lasttotal));
         const per = ((firsttotal-lasttotal)/firsttotal) * 100;
         dispatch(Actions.totalActions.PERSENT(per));
-        sell_forreceipt(product);
+
     }
-
-   const buy_forreceipt = (product) => {
-
-        const newre = {
-            name : product.name,
-            alınan: product.alınan+1,
-            totalp: (product.alınan+1) * product.birimfiyat,
-        }
-        if (forreceipt.find(element => element.name === product.name))
-             dispatch(Actions.totalActions.UPDATE_RECEIPT(newre));
-        else
-            dispatch(Actions.totalActions.RECEIPT(newre))
-   }
    
     const buy = (product) => {
     
@@ -75,7 +49,6 @@ const Products = () =>{
         dispatch(Actions.totalActions.ADD_TO_TOTAL(lasttotalprice));
         const per = ((firsttotal - lasttotalprice)/firsttotal) * 100;
         dispatch(Actions.totalActions.PERSENT(per));
-        buy_forreceipt(product);
       
     }
 
@@ -129,13 +102,13 @@ const Products = () =>{
             </div>
             <div id="printablediv" className="text-center">
                 <h3 style={{fontWeight:"bold", color:"black",marginBottom:"1rem"}}>RECEIPT</h3>
-                    {forreceipt.map((element,index) => (
-                        <p style={{fontSize:"1.2rem"}}>{element.name} X <strong>{element.alınan}</strong> ..............$ {element.totalp.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</p>
+                    {productslist.filter(el => el.alınan > 0).map((element,index) => (
+                        <p style={{fontSize:"1.2rem"}}>{element.name} X <strong>{element.alınan}</strong> ..............$ {(element.alınan * element.birimfiyat).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</p>
                     ))}
                      {pageLoad===true &&  <p style={{textDecoration:"underline" , fontSize:"1.2rem", textDecorationThickness:"2px"}}>Total is: $ {(firsttotal-totalprice).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</p>}  
             </div>
             <div className="text-center">
-               <button  className={` btn btn-lg ${style.printbutton}`} disabled={forreceipt.length === 0} onClick={() => print()}>Print Receipt</button>
+               <button  className={` btn btn-lg ${style.printbutton}`} disabled={productslist.filter(el => el.alınan > 0).length === 0} onClick={() => print()}>Print Receipt</button>
             </div>
                 
         </>
