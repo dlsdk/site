@@ -62,15 +62,15 @@ const Products = () =>{
     return (
         <>
             <nav className="row">
-                <div style={{textAlign:'center'}} className="d-flex align-items-center justify-content-center align-content-center">
+                <div style={{textAlign:'center'}} className="d-flex align-items-center justify-content-center">
                     {done ?
                         <>
-                            <p style={{margin:'0' , fontSize:'1.5rem'}}>Can't afford that!</p>
-                            <p style={{margin:'0', fontSize:'1.5rem',marginLeft:"3rem" }}>Sell something!</p>
+                            <p className={style.navp}>Can't afford that!</p>
+                            <p className={style.navp} style={{marginLeft:"3rem" }}>Sell something!</p>
                         </> :
                         <>
-                            <p style={{margin:'0' , fontSize:'1.5rem'}}>Remaining: ${totalprice.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}  USD</p>
-                            <p style={{margin:'0', fontSize:'1.5rem',marginLeft:"3rem" }}>{persentcontent}</p>
+                            <p className={style.navp}>Remaining: ${totalprice.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}  USD</p>
+                            <p className={style.navp} style={{marginLeft:"3rem" }}>{persentcontent}</p>
                         </>
                     }
                 </div>
@@ -86,7 +86,7 @@ const Products = () =>{
                                 <p className={` ${style.p}`}>{products.name}</p>
                                 <span className={` ${style.sp}`}> USD {products.birimfiyat.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</span>
                             </div>
-                            <div className={`d-flex justify-content-between align-items-center align-content-center ${style.cardbuttonsdiv}`}>
+                            <div className={`d-flex justify-content-between align-items-center ${style.cardbuttonsdiv}`}>
                                     <button className={`btn btn-primary btn-md ${style.buttons}`} style={{ backgroundColor: "rgb(221, 153, 153)", border:"rgb(221, 153, 153)"}} disabled={products.alınan === 0}  onClick={() => sell(products)} >Sell</button>
                                     <p style={{margin:'0', fontSize:'1.2rem', color:'white'}}>{products.alınan}</p>
                                     <button className={`btn btn-primary btn-md ${style.buttons}`} style={{ backgroundColor: "rgb(158, 221, 153)", border:"rgb(158, 221, 153)"}} disabled={done} onClick={() => buy(products)} >Buy</button>
@@ -104,7 +104,7 @@ const Products = () =>{
                      {pageLoad===true &&  <p style={{textDecoration:"underline" , fontSize:"1.2rem", textDecorationThickness:"2px"}}>Total is: $ {(firsttotal-totalprice).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</p>}  
             </div>
             <div className="text-center">
-               <button  className={` btn btn-lg ${style.printbutton}`} disabled={productslist.filter(el => el.alınan > 0).length === 0} onClick={() => print()}>Print Receipt</button>
+               <button  className={`btn btn-lg ${style.printbutton}`} disabled={productslist.filter(el => el.alınan > 0).length === 0} onClick={() => print()}>Print Receipt</button>
             </div>
                 
         </>
