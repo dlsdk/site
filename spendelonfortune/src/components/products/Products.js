@@ -1,5 +1,5 @@
 import style from "./Products.module.css"
-import Actions from "../redux/actions";
+import Actions from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux"
 import { useState } from "react";
 
@@ -7,49 +7,45 @@ const Products = () =>{
 
     const dispatch = useDispatch();
     const { totalprice, persent, productslist } = useSelector(state => state.totalreducer);
+    const { PERSENT, ADD_TO_TOTAL, DECREASE , INCREASE} = Actions.totalActions;
     const [pageLoad,setPageLoad] = useState(0);
     const [done,setDone] = useState(0);
     const persentcontent = pageLoad ? `You only spent ${persent.toFixed(6)}  % of the total!` : "You haven't spent a single dollar! start buying!";
     const firsttotal = 217000000000;
 
    
+    const same_steps = (product,lasttotal, bool) => {
+        
+        setPageLoad(true);
+
+        const payload = {
+            name: product.name,
+            alınan: bool ? product.alınan+1 : product.alınan-1,
+        }   
+        dispatch(bool ? INCREASE(payload) : DECREASE(payload));
+        dispatch(ADD_TO_TOTAL(lasttotal));
+        const per = ((firsttotal - lasttotal)/firsttotal) * 100;
+        dispatch(PERSENT(per));
+    }
+
     const sell = (product) => {
         if (done)
             setDone(false);
-        setPageLoad(true);
         const lasttotal = totalprice + product.birimfiyat;
         if (lasttotal > firsttotal)
             return;      
-        const payload = {
-            name : product.name,
-            alınan: product.alınan-1,
-        }
-        dispatch(Actions.totalActions.DECREASE(payload));
-        dispatch(Actions.totalActions.ADD_TO_TOTAL(lasttotal));
-        const per = ((firsttotal-lasttotal)/firsttotal) * 100;
-        dispatch(Actions.totalActions.PERSENT(per));
+        same_steps(product,lasttotal,false);
 
     }
-   
     const buy = (product) => {
-    
-        setPageLoad(true);
-     
-        const lasttotalprice = totalprice - product.birimfiyat;
-        if (lasttotalprice <= 0)
+      
+        const lasttotal = totalprice - product.birimfiyat;
+        if (lasttotal <= 0)
         {
             setDone(true);
              return;
         }  
-         const payload = {
-            name : product.name,
-            alınan: product.alınan+1,
-        }
-        dispatch(Actions.totalActions.INCREASE(payload));
-        dispatch(Actions.totalActions.ADD_TO_TOTAL(lasttotalprice));
-        const per = ((firsttotal - lasttotalprice)/firsttotal) * 100;
-        dispatch(Actions.totalActions.PERSENT(per));
-      
+        same_steps(product,lasttotal,true);
     }
 
     const print = () => {
