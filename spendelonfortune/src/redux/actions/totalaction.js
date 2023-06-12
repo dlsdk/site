@@ -1,17 +1,11 @@
 import totoalActionType from "../actiontypes";
 
-const INCREASE=(val) => {
+const INCREASE_DECREASE=(val) => {
     console.log("val : " , val);
     return {
-        type:totoalActionType.total.INCREASE, payload:val
+        type:totoalActionType.total.INCREASE_DECREASE, payload:val
     }
-} 
-
-const DECREASE=(val) => {
-    return {
-        type:totoalActionType.total.DECREASE, payload:val
-    }
-} 
+}
 
 const ADD_TO_TOTAL=(val) => {
     return {
@@ -26,5 +20,5 @@ const PERSENT=(val) => {
 }
 
 
-const totalActions = {INCREASE,DECREASE,ADD_TO_TOTAL,PERSENT};
+const totalActions = {INCREASE_DECREASE,ADD_TO_TOTAL,PERSENT};
 export default totalActions;

@@ -7,7 +7,7 @@ const Products = () =>{
 
     const dispatch = useDispatch();
     const { totalprice, persent, productslist } = useSelector(state => state.totalreducer);
-    const { PERSENT, ADD_TO_TOTAL, DECREASE , INCREASE} = Actions.totalActions;
+    const { PERSENT, ADD_TO_TOTAL, INCREASE_DECREASE} = Actions.totalActions;
     const [pageLoad,setPageLoad] = useState(0);
     const [done,setDone] = useState(0);
     const persentcontent = pageLoad ? `You only spent ${persent.toFixed(6)}  % of the total!` : "You haven't spent a single dollar! start buying!";
@@ -17,12 +17,12 @@ const Products = () =>{
     const same_steps = (product,lasttotal, bool) => {
         
         setPageLoad(true);
-
+        
         const payload = {
             name: product.name,
             alınan: bool ? product.alınan+1 : product.alınan-1,
         }   
-        dispatch(bool ? INCREASE(payload) : DECREASE(payload));
+        dispatch(INCREASE_DECREASE(payload));
         dispatch(ADD_TO_TOTAL(lasttotal));
         const per = ((firsttotal - lasttotal)/firsttotal) * 100;
         dispatch(PERSENT(per));

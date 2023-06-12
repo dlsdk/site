@@ -1,12 +1,12 @@
 import totoalActionType from "../actiontypes";
 import products from "../products_list";
 
-const {INCREASE, ADD_TO_TOTAL, PERSENT,DECREASE} = totoalActionType.total;
+const {INCREASE_DECREASE, ADD_TO_TOTAL, PERSENT} = totoalActionType.total;
 
 
 const totalreducer = (state=products,action) =>{
     switch (action.type) {
-        case INCREASE:
+        case INCREASE_DECREASE:
           return {
            ...state,
            productslist: state.productslist.map((product) => action.payload.name === product.name ? {...product,alınan:action.payload.alınan}  : product ),
@@ -21,11 +21,6 @@ const totalreducer = (state=products,action) =>{
             ...state,
             persent : action.payload
           };
-        case DECREASE:
-          return{
-            ...state,
-            productslist: state.productslist.map((product) => action.payload.name === product.name ? {...product,alınan:action.payload.alınan}  : product ),
-          }
         default:
           {
             console.log("burda");
