@@ -340,7 +340,6 @@ const products = {
 
         
     ],
-    forreceipt:[],
     totalprice: 217000000000,
     persent:0
 }
