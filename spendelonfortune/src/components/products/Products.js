@@ -3,17 +3,19 @@ import Actions from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux"
 import { useState } from "react";
 
+// Değişmeyen değerler olduğu için tekrar render olmasın diye burda tanımladım.
+const { PERSENT, ADD_TO_TOTAL, INCREASE_DECREASE} = Actions.totalActions;
+const firsttotal = 217000000000;
+
 const Products = () =>{
 
     const dispatch = useDispatch();
     const { totalprice, persent, productslist } = useSelector(state => state.totalreducer);
-    const { PERSENT, ADD_TO_TOTAL, INCREASE_DECREASE} = Actions.totalActions;
-    const [pageLoad,setPageLoad] = useState(0);
-    const [done,setDone] = useState(0);
+    const [pageLoad,setPageLoad] = useState(0); // sayfa ilk yüklendiğinde sayfada yazan text farklı olduğu için pageload state i oluşturup oan göre texti değiştirdim.
     const persentcontent = pageLoad ? `You only spent ${persent.toFixed(6)}  % of the total!` : "You haven't spent a single dollar! start buying!";
-    const firsttotal = 217000000000;
+    const [done,setDone] = useState(0);
 
-   
+    // alunan sayısını bool a göre güncelliyorum.
     const same_steps = (product,lasttotal, bool) => {
         
         setPageLoad(true);
@@ -34,6 +36,8 @@ const Products = () =>{
         const lasttotal = totalprice + product.birimfiyat;
         if (lasttotal > firsttotal)
             return;      
+        // buy ve sell fonksiyonları için aynı adımlar olduğundan dolayı same_steps fonsksiyonuna gidiyor fakat alınan sayısı için hangi fonksiyondan geldiğini 
+        // ayırt etmek için buy fonksiyonundan gidince true sell den gidince false gönderiyorum.
         same_steps(product,lasttotal,false);
 
     }
@@ -44,7 +48,9 @@ const Products = () =>{
         {
             setDone(true);
              return;
-        }  
+        } 
+        // buy ve sell fonksiyonları için aynı adımlar olduğundan dolayı same_steps fonsksiyonuna gidiyor fakat alınan sayısı için hangi fonksiyondan geldiğini 
+        // ayırt etmek için buy fonksiyonundan gidince true sell den gidince false gönderiyorum.
         same_steps(product,lasttotal,true);
     }
 

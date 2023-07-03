@@ -1,7 +1,6 @@
 import totoalActionType from "../actiontypes";
 
 const INCREASE_DECREASE=(val) => {
-    console.log("val : " , val);
     return {
         type:totoalActionType.total.INCREASE_DECREASE, payload:val
     }

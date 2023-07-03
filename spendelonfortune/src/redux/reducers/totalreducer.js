@@ -23,7 +23,6 @@ const totalreducer = (state=products,action) =>{
           };
         default:
           {
-            console.log("burda");
             return state;
           }
           
