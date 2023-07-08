@@ -59,10 +59,14 @@ const Products = () =>{
         const divToPrint = document.getElementById("printablediv");
         const iframe = document.createElement("iframe");
         document.body.appendChild(iframe);
-        const ifr = iframe.contentWindow;
-        ifr.document.write(divToPrint.innerHTML);
+        const ifr = iframe.contentWindow.document;
+        ifr.open();
+        ifr.write(divToPrint.innerHTML);
+        ifr.close();
         iframe.contentWindow.print();
-        document.body.removeChild(iframe);
+        iframe.contentWindow.addEventListener("afterprint", () => {
+            document.body.removeChild(iframe);
+        });
     }
 
     return (
