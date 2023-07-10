@@ -3,7 +3,6 @@ import Actions from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux"
 import { useState } from "react";
 
-// Değişmeyen değerler olduğu için tekrar render olmasın diye burda tanımladım.
 const { PERSENT, ADD_TO_TOTAL, INCREASE_DECREASE} = Actions.totalActions;
 const firsttotal = 217000000000;
 
@@ -11,18 +10,18 @@ const Products = () =>{
 
     const dispatch = useDispatch();
     const { totalprice, persent, productslist } = useSelector(state => state.totalreducer);
-    const [pageLoad,setPageLoad] = useState(0); // sayfa ilk yüklendiğinde sayfada yazan text farklı olduğu için pageload state i oluşturup oan göre texti değiştirdim.
-    const persentcontent = pageLoad ? `You only spent ${persent.toFixed(6)}  % of the total!` : "You haven't spent a single dollar! start buying!";
+    const [isPageLoad,setisPageLoad] = useState(0); // sayfa ilk yüklendiğinde sayfada yazan text farklı olduğu için isPageLoad state i oluşturup oan göre texti değiştirdim.
+    const persentcontent = isPageLoad ? `You only spent ${persent.toFixed(6)}  % of the total!` : "You haven't spent a single dollar! start buying!";
     const [done,setDone] = useState(0);
 
-    // alunan sayısını bool a göre güncelliyorum.
-    const same_steps = (product,lasttotal, bool) => {
+    // alunan sayısını fromBuyOrSell e göre güncelliyorum.
+    const buySellSameSteps = (product,lasttotal, fromBuyOrSell) => {
         
-        setPageLoad(true);
+        setisPageLoad(true);
         
         const payload = {
             name: product.name,
-            alınan: bool ? product.alınan+1 : product.alınan-1,
+            alınan: fromBuyOrSell ? product.alınan+1 : product.alınan-1,
         }   
         dispatch(INCREASE_DECREASE(payload));
         dispatch(ADD_TO_TOTAL(lasttotal));
@@ -35,10 +34,8 @@ const Products = () =>{
             setDone(false);
         const lasttotal = totalprice + product.birimfiyat;
         if (lasttotal > firsttotal)
-            return;      
-        // buy ve sell fonksiyonları için aynı adımlar olduğundan dolayı same_steps fonsksiyonuna gidiyor fakat alınan sayısı için hangi fonksiyondan geldiğini 
-        // ayırt etmek için buy fonksiyonundan gidince true sell den gidince false gönderiyorum.
-        same_steps(product,lasttotal,false);
+            return;   
+        buySellSameSteps(product,lasttotal,false);
 
     }
     const buy = (product) => {
@@ -49,13 +46,11 @@ const Products = () =>{
             setDone(true);
              return;
         } 
-        // buy ve sell fonksiyonları için aynı adımlar olduğundan dolayı same_steps fonsksiyonuna gidiyor fakat alınan sayısı için hangi fonksiyondan geldiğini 
-        // ayırt etmek için buy fonksiyonundan gidince true sell den gidince false gönderiyorum.
-        same_steps(product,lasttotal,true);
+        buySellSameSteps(product,lasttotal,true); 
     }
 
     const print = () => {
-        console.log("printe girdi");
+        console.log("print function");
         const divToPrint = document.getElementById("printablediv");
         const iframe = document.createElement("iframe");
         document.body.appendChild(iframe);
@@ -64,9 +59,9 @@ const Products = () =>{
         ifr.write(divToPrint.innerHTML);
         ifr.close();
         iframe.contentWindow.print();
-        iframe.contentWindow.addEventListener("afterprint", () => {
+        iframe.contentWindow.onafterprint = () => {
             document.body.removeChild(iframe);
-        });
+        }
     }
 
     return (
@@ -89,20 +84,19 @@ const Products = () =>{
             <div className={`${style.products}`}>
                 
                 {productslist.map((products,index) => (
-                    <>
-                        <div key={index} className={`card ${style.card}`}>
-                            <img  className={style.img} src={products.imagesrc} alt="productimage"/>
-                            <div className={`card-body ${style.cardb}`}>
-                                <p className={` ${style.p}`}>{products.name}</p>
-                                <span className={` ${style.sp}`}> USD {products.birimfiyat.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</span>
-                            </div>
-                            <div className={`d-flex justify-content-between align-items-center ${style.cardbuttonsdiv}`}>
-                                    <button className={`btn btn-primary btn-md ${style.buttons}`} style={{ backgroundColor: "rgb(221, 153, 153)", border:"rgb(221, 153, 153)"}} disabled={products.alınan === 0}  onClick={() => sell(products)} >Sell</button>
-                                    <p style={{margin:'0', fontSize:'1.2rem', color:'white'}}>{products.alınan}</p>
-                                    <button className={`btn btn-primary btn-md ${style.buttons}`} style={{ backgroundColor: "rgb(158, 221, 153)", border:"rgb(158, 221, 153)"}} disabled={done} onClick={() => buy(products)} >Buy</button>
-                            </div>
-                        </div>  
-                    </>
+                
+                    <div key={index} className={`card ${style.card}`}>
+                        <img  className={style.img} src={products.imagesrc} alt="productimage"/>
+                        <div className={`card-body ${style.cardb}`}>
+                            <p className={` ${style.p}`}>{products.name}</p>
+                            <span className={` ${style.sp}`}> USD {products.birimfiyat.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</span>
+                        </div>
+                        <div className={`d-flex justify-content-between align-items-center ${style.cardbuttonsdiv}`}>
+                            <button className={`btn btn-primary btn-md ${style.buttons}`} style={{ backgroundColor: "rgb(221, 153, 153)", border:"rgb(221, 153, 153)"}} disabled={products.alınan === 0}  onClick={() => sell(products)} >Sell</button>
+                            <p style={{margin:'0', fontSize:'1.2rem', color:'white'}}>{products.alınan}</p>
+                            <button className={`btn btn-primary btn-md ${style.buttons}`} style={{ backgroundColor: "rgb(158, 221, 153)", border:"rgb(158, 221, 153)"}} disabled={done} onClick={() => buy(products)} >Buy</button>
+                        </div>
+                    </div>  
                 ))} 
             
             </div>
@@ -111,7 +105,7 @@ const Products = () =>{
                     {productslist.filter(el => el.alınan > 0).map((element,index) => (
                         <p style={{fontSize:"1.2rem"}}>{element.name} X <strong>{element.alınan}</strong> ..............$ {(element.alınan * element.birimfiyat).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</p>
                     ))}
-                     {pageLoad===true &&  <p style={{textDecoration:"underline" , fontSize:"1.2rem", textDecorationThickness:"2px"}}>Total is: $ {(firsttotal-totalprice).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</p>}  
+                     {isPageLoad===true &&  <p style={{textDecoration:"underline" , fontSize:"1.2rem", textDecorationThickness:"2px"}}>Total is: $ {(firsttotal-totalprice).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</p>}  
             </div>
             <div className="text-center">
                <button  className={`btn btn-lg ${style.printbutton}`} disabled={productslist.filter(el => el.alınan > 0).length === 0} onClick={() => print()}>Print Receipt</button>
