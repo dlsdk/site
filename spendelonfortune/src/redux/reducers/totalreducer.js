@@ -9,12 +9,12 @@ const totalreducer = (state=products,action) =>{
         case INCREASE_DECREASE:
           return {
            ...state,
-           productslist: state.productslist.map((product) => action.payload.name === product.name ? {...product,alınan:action.payload.alınan}  : product ),
+           productsList: state.productsList.map((product) => action.payload.name === product.name ? {...product,taken:action.payload.taken}  : product ),
           };
         case ADD_TO_TOTAL:
           return {
            ...state,
-           totalprice: action.payload
+           totalPrice: action.payload
           };
         case PERSENT :
           return {

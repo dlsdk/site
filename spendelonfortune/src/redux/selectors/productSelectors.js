@@ -4,12 +4,12 @@ const selectProducts = (state) => state.totalreducer;
 
 export const selectProductList = createSelector(
     [selectProducts],
-    (products) => products.productslist
+    (products) => products.productsList
 )
 
 export const selecttotalPrice = createSelector(
     [selectProducts],
-    (products) => products.totalprice
+    (products) => products.totalPrice
 )
 
 export const selectPersent = createSelector(

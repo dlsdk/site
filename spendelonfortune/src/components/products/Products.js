@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useState } from "react";
 import selectors from "../../redux/selectors";
 
-const firsttotal = 217000000000;
+const firstTotal = 217000000000;
 
 const {
     productSelectors: {selectProductList,selectPersent,selecttotalPrice}
@@ -17,44 +17,42 @@ const {
 const Products = () =>{
 
     const dispatch = useDispatch();
-    const totalprice = useSelector(selecttotalPrice);
+    const totalPrice = useSelector(selecttotalPrice);
     const persent = useSelector(selectPersent);
-    const productslist = useSelector(selectProductList);
+    const productsList = useSelector(selectProductList);
     const [isPageLoad,setisPageLoad] = useState(0); // sayfa ilk yüklendiğinde sayfada yazan text farklı olduğu için isPageLoad state i oluşturup oan göre texti değiştirdim.
-    const persentcontent = isPageLoad ? `You only spent ${persent.toFixed(6)}  % of the total!` : "You haven't spent a single dollar! start buying!";
+    const persentContent = isPageLoad ? `You only spent ${persent.toFixed(6)}  % of the total!` : "You haven't spent a single dollar! start buying!";
     const [done,setDone] = useState(0);
 
     // alunan sayısını fromBuyOrSell e göre güncelliyorum.
-    const buySellSameSteps = (product,lasttotal, fromBuyOrSell) => {
+    const buySellSameSteps = (product, lastTotal, fromBuyOrSell) => {
         setisPageLoad(true);
         const payload = {
             name: product.name,
-            alınan: fromBuyOrSell ? product.alınan+1 : product.alınan-1,
+            taken: fromBuyOrSell ? product.taken+1 : product.taken-1,
         }   
         dispatch(INCREASE_DECREASE(payload));
-        dispatch(ADD_TO_TOTAL(lasttotal));
-        const per = ((firsttotal - lasttotal)/firsttotal) * 100;
+        dispatch(ADD_TO_TOTAL(lastTotal));
+        const per = ((firstTotal - lastTotal)/firstTotal) * 100;
         dispatch(PERSENT(per));
     }
 
     const sell = (product) => {
         if (done)
             setDone(false);
-        const lasttotal = totalprice + product.birimfiyat;
-        if (lasttotal > firsttotal)
+        const lastTotal = totalPrice + product.unitPrice;
+        if (lastTotal > firstTotal)
             return;   
-        buySellSameSteps(product,lasttotal,false);
-
+        buySellSameSteps(product,lastTotal,false);
     }
     const buy = (product) => {
-      
-        const lasttotal = totalprice - product.birimfiyat;
-        if (lasttotal <= 0)
+        const lastTotal = totalPrice - product.unitPrice;
+        if (lastTotal <= 0)
         {
             setDone(true);
              return;
         } 
-        buySellSameSteps(product,lasttotal,true); 
+        buySellSameSteps(product,lastTotal,true); 
     }
 
     const print = () => {
@@ -82,8 +80,8 @@ const Products = () =>{
                             <p className={style.navp} style={{marginLeft:"3rem" }}>Sell something!</p>
                         </> :
                         <>
-                            <p className={style.navp}>Remaining: ${totalprice.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}  USD</p>
-                            <p className={style.navp} style={{marginLeft:"3rem" }}>{persentcontent}</p>
+                            <p className={style.navp}>Remaining: ${totalPrice.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}  USD</p>
+                            <p className={style.navp} style={{marginLeft:"3rem" }}>{persentContent}</p>
                         </>
                     }
                 </div>
@@ -91,17 +89,17 @@ const Products = () =>{
 
             <div className={`${style.products}`}>
                 
-                {productslist.map((products,index) => (
+                {productsList.map((products,index) => (
                 
                     <div key={index} className={`card ${style.card}`}>
-                        <img  className={style.img} src={products.imagesrc} alt="productimage"/>
+                        <img  className={style.img} src={products.imgSrc} alt="productimage"/>
                         <div className={`card-body ${style.cardb}`}>
                             <p className={` ${style.p}`}>{products.name}</p>
-                            <span className={` ${style.sp}`}> USD {products.birimfiyat.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</span>
+                            <span className={` ${style.sp}`}> USD {products.unitPrice.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</span>
                         </div>
                         <div className={`d-flex justify-content-between align-items-center ${style.cardbuttonsdiv}`}>
-                            <button className={`btn btn-primary btn-md ${style.buttons}`} style={{ backgroundColor: "rgb(221, 153, 153)", border:"rgb(221, 153, 153)"}} disabled={products.alınan === 0}  onClick={() => sell(products)} >Sell</button>
-                            <p style={{margin:'0', fontSize:'1.2rem', color:'white'}}>{products.alınan}</p>
+                            <button className={`btn btn-primary btn-md ${style.buttons}`} style={{ backgroundColor: "rgb(221, 153, 153)", border:"rgb(221, 153, 153)"}} disabled={products.taken === 0}  onClick={() => sell(products)} >Sell</button>
+                            <p style={{margin:'0', fontSize:'1.2rem', color:'white'}}>{products.taken}</p>
                             <button className={`btn btn-primary btn-md ${style.buttons}`} style={{ backgroundColor: "rgb(158, 221, 153)", border:"rgb(158, 221, 153)"}} disabled={done} onClick={() => buy(products)} >Buy</button>
                         </div>
                     </div>  
@@ -110,13 +108,13 @@ const Products = () =>{
             </div>
             <div id="printablediv" className="text-center">
                 <h3 style={{fontWeight:"bold", color:"black",marginBottom:"1rem"}}>RECEIPT</h3>
-                    {productslist.filter(el => el.alınan > 0).map((element,index) => (
-                        <p style={{fontSize:"1.2rem"}}>{element.name} X <strong>{element.alınan}</strong> ..............$ {(element.alınan * element.birimfiyat).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</p>
+                    {productsList.filter((el) => el.taken > 0).map((element,index) => (
+                        <p key={index} style={{fontSize:"1.2rem"}}>{element.name} X <strong>{element.taken}</strong> ..............$ {(element.taken * element.unitPrice).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</p>
                     ))}
-                     {isPageLoad===true &&  <p style={{textDecoration:"underline" , fontSize:"1.2rem", textDecorationThickness:"2px"}}>Total is: $ {(firsttotal-totalprice).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</p>}  
+                     {isPageLoad===true &&  <p style={{textDecoration:"underline" , fontSize:"1.2rem", textDecorationThickness:"2px"}}>Total is: $ {(firstTotal-totalPrice).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}</p>}  
             </div>
             <div className="text-center">
-               <button  className={`btn btn-lg ${style.printbutton}`} disabled={productslist.filter(el => el.alınan > 0).length === 0} onClick={() => print()}>Print Receipt</button>
+               <button  className={`btn btn-lg ${style.printbutton}`} disabled={productsList.filter((el)=> el.taken > 0).length === 0} onClick={() => print()}>Print Receipt</button>
             </div>
                 
         </>
