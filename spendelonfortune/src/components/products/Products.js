@@ -2,23 +2,31 @@ import style from "./Products.module.css"
 import Actions from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux"
 import { useState } from "react";
+import selectors from "../../redux/selectors";
 
-const { PERSENT, ADD_TO_TOTAL, INCREASE_DECREASE} = Actions.totalActions;
 const firsttotal = 217000000000;
+
+const {
+    productSelectors: {selectProductList,selectPersent,selecttotalPrice}
+} = selectors
+
+const {
+    totalActions: {PERSENT,ADD_TO_TOTAL,INCREASE_DECREASE}
+} = Actions
 
 const Products = () =>{
 
     const dispatch = useDispatch();
-    const { totalprice, persent, productslist } = useSelector(state => state.totalreducer);
+    const totalprice = useSelector(selecttotalPrice);
+    const persent = useSelector(selectPersent);
+    const productslist = useSelector(selectProductList);
     const [isPageLoad,setisPageLoad] = useState(0); // sayfa ilk yüklendiğinde sayfada yazan text farklı olduğu için isPageLoad state i oluşturup oan göre texti değiştirdim.
     const persentcontent = isPageLoad ? `You only spent ${persent.toFixed(6)}  % of the total!` : "You haven't spent a single dollar! start buying!";
     const [done,setDone] = useState(0);
 
     // alunan sayısını fromBuyOrSell e göre güncelliyorum.
     const buySellSameSteps = (product,lasttotal, fromBuyOrSell) => {
-        
         setisPageLoad(true);
-        
         const payload = {
             name: product.name,
             alınan: fromBuyOrSell ? product.alınan+1 : product.alınan-1,
