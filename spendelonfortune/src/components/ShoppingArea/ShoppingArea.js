@@ -2,7 +2,7 @@ import InfoBar from "../InfoBar/InfoBar";
 import ProductCards from "../ProductCards/ProductCards";
 import Receipt from "../Receipt/Receipt";
 
-const Shopping = () =>{
+const ShoppingArea = () =>{
     return (
         <>
            <InfoBar/>
@@ -12,4 +12,4 @@ const Shopping = () =>{
     );
 }
 
-export default Shopping;
+export default ShoppingArea;

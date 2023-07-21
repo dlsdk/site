@@ -1,12 +1,12 @@
 import './App.css';
 import Head from './components/header/Head';
-import Shopping from './components/Shopping/Shopping';
+import ShoppingArea from './components/ShoppingArea/ShoppingArea';
 
 function App() {
   return (
     <div className="App">
       <Head/>
-      <Shopping/>
+      <ShoppingArea/>
     </div>
   );
 }

@@ -5,11 +5,17 @@ import style from "./InfoBar.module.css"
 import helpers from '../helper'
   
 const {
-    productSelectors: {selectpersentOfFortune,selectcurrentTotalBalance,selectFortuneStatus,selectUserShoppingStatus}
+    productSelectors: {selectpersentOfFortune,
+        selectcurrentTotalBalance,
+        selectFortuneStatus,
+        selectUserShoppingStatus
+    }
 } = selectors
 
 const {
-    helperFunctions: {formatNumberWithComma,toFixedVal}
+    helperFunctions: {formatNumberWithComma,
+        toFixedVal
+    }
 } = helpers
 
 export default function InfoBar() {
@@ -29,7 +35,6 @@ export default function InfoBar() {
     }
     return text;
 }
-
   return (
     <nav className="row">
         <div className={style.navdiv}>

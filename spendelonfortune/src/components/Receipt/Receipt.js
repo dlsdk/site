@@ -5,7 +5,11 @@ import selectors from "../../redux/selectors";
 import helpers from "../helper";
 
 const {
-    productSelectors: {selectcurrentTotalBalance,selectShoppingBasket,selectUserShoppingStatus,selectTotalFortune}
+    productSelectors: { selectcurrentTotalBalance,
+        selectShoppingBasket,
+        selectUserShoppingStatus,
+        selectTotalFortune
+    }
 } = selectors
 
 const {
@@ -31,15 +35,17 @@ export default function Receipt() {
             document.body.removeChild(iframe);
         }
     }
+    
   return (
     <> 
         <div id="printablediv" className="text-center">
             <h3 className={style.receiptHeader}>RECEIPT</h3>
-            {Object.values(shoppingBasket).map((element,index) => (
+            {shoppingBasket.map((element,index) => (
                 <p key={index} className={style.info}>{element.name} X <strong>{element.taken}</strong> ..............$ {formatNumberWithComma(element.taken * element.unitPrice)}</p>
             ))}
-         {isUserStartShopping===true &&  
-            <p className={style.totalInfo}>Total is: $ {formatNumberWithComma(totalFortune-currentTotalBalance)}</p>}  
+         { isUserStartShopping===true &&  
+            <p className={style.totalInfo}>Total is: $ {formatNumberWithComma(totalFortune-currentTotalBalance)}</p>
+            }  
         </div>
         <div className="text-center">
             <button  className={`btn btn-lg ${style.printbutton}`} disabled={!shoppingBasket} onClick={() => print()}>Print Receipt</button>
