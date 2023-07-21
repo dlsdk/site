@@ -5,7 +5,7 @@ const selectProducts = (state) => state.totalreducer;
 
 export const selectProductList = createSelector(
     [selectProducts],
-    (products) => products.productsList
+    (products) => Object.values(products.productsList)
 )
 
 export const selectcurrentTotalBalance = createSelector(
@@ -20,7 +20,7 @@ export const selectpersentOfFortune = createSelector(
 
 export const selectShoppingBasket = createSelector(
     [selectProducts],
-    (products) => products.shoppingBasket
+    (products) => Object.values(products.shoppingBasket)
 )
 
 export const selectFortuneStatus = createSelector(

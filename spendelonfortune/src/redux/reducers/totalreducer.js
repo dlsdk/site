@@ -1,7 +1,7 @@
 import totoalActionType from "../actiontypes";
 import products from "../products_list";
 
-const {FORTUNE_STATUS,BUY_SELL,ADD_TO_BASKET,DELETE_TO_BASKET} = totoalActionType.total;
+const {FORTUNE_FINISHED,BUY_SELL,ADD_TO_BASKET,DELETE_TO_BASKET} = totoalActionType.total;
 
 
 const totalreducer = (state=products,action) =>{
@@ -13,11 +13,12 @@ const totalreducer = (state=products,action) =>{
            currentTotalBalance : action.payload.currentTotalBalance,
            persentOfFortune : action.payload.persentOfFortune,
            isUserStartShopping:true,
+           isFortuneFinish:false
           };
-        case FORTUNE_STATUS:
+        case FORTUNE_FINISHED:
           return {
             ...state,
-            isFortuneFinish:action.fortuneStatus
+            isFortuneFinish: true
           }
         case ADD_TO_BASKET:
           return {

@@ -1,7 +1,7 @@
 import ActionTypes from "../actiontypes"
 
 const {
-    total: {ADD_TO_BASKET,ADD_TO_TOTAL,PERSENT_OF_FORTUNE,BUY_SELL,FORTUNE_STATUS,DELETE_TO_BASKET},
+    total: {ADD_TO_BASKET,ADD_TO_TOTAL,PERSENT_OF_FORTUNE,BUY_SELL,FORTUNE_FINISHED,DELETE_TO_BASKET},
 } = ActionTypes
 
 const buyAndSell=(payload) => {
@@ -11,10 +11,9 @@ const buyAndSell=(payload) => {
     }
 }
 
-const FortuneFinishStatus = (fortuneStatus) => {
+const FortuneFinish = () => {
     return {
-        type:FORTUNE_STATUS,
-        fortuneStatus
+        type:FORTUNE_FINISHED
     }
 }
 
@@ -46,5 +45,5 @@ const deleteFromShoppingBasket=(deletedBasketElement) => {
     }
 }
 
-const totalActions = {buyAndSell,updatepersentOfFortune,addToTotal,addToBasket,FortuneFinishStatus,deleteFromShoppingBasket};
+const totalActions = {buyAndSell,updatepersentOfFortune,addToTotal,addToBasket,FortuneFinish,deleteFromShoppingBasket};
 export default totalActions;

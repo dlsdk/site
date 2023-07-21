@@ -19,7 +19,7 @@ export default function InfoBar() {
   const isUserStartShopping = useSelector(selectUserShoppingStatus);
   const persentOfFortune = useSelector(selectpersentOfFortune);
 
-  const getNewPersentOfFortuneText = () => {
+  const getPersentOfFortuneText = () => {
     let text = '';
     if (isUserStartShopping){
         text = `You only spent ${toFixedVal(persentOfFortune)}  % of the total!`;
@@ -40,7 +40,7 @@ export default function InfoBar() {
                 </> :
                 <>
                 <p className={style.navp}>Remaining: ${formatNumberWithComma(currentTotalBalance)}  USD</p>
-                <p className={style.navpe}>{getNewPersentOfFortuneText()}</p>
+                <p className={style.navpe}>{getPersentOfFortuneText()}</p>
                 </>
             }
         </div>
