@@ -1,7 +1,6 @@
-import * as total from "./totalactiontype"
+import * as total from "./totalactiontypes"
 
-const totoalActionType = {
+const ActionTypes = {
     total,
 }
-
-export default totoalActionType;
+export default ActionTypes;

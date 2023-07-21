@@ -1,25 +1,38 @@
 import totoalActionType from "../actiontypes";
 import products from "../products_list";
 
-const {INCREASE_DECREASE, ADD_TO_TOTAL, PERSENT} = totoalActionType.total;
+const {FORTUNE_STATUS,BUY_SELL,ADD_TO_BASKET,DELETE_TO_BASKET} = totoalActionType.total;
 
 
 const totalreducer = (state=products,action) =>{
     switch (action.type) {
-        case INCREASE_DECREASE:
+        case BUY_SELL:
           return {
            ...state,
-           productsList: state.productsList.map((product) => action.payload.name === product.name ? {...product,taken:action.payload.taken}  : product ),
+           shoppingBasket : {...state.shoppingBasket, [action.payload.id]:{...state.shoppingBasket[action.payload.id], taken: action.payload.taken}},
+           currentTotalBalance : action.payload.currentTotalBalance,
+           persentOfFortune : action.payload.persentOfFortune,
+           isUserStartShopping:true,
           };
-        case ADD_TO_TOTAL:
-          return {
-           ...state,
-           totalPrice: action.payload
-          };
-        case PERSENT :
+        case FORTUNE_STATUS:
           return {
             ...state,
-            persent : action.payload
+            isFortuneFinish:action.fortuneStatus
+          }
+        case ADD_TO_BASKET:
+          return {
+            ...state,
+            shoppingBasket : {...state.shoppingBasket, [action.basketElement.id]:{...action.basketElement}},
+            isUserStartShopping:true,
+            currentTotalBalance: action.basketElement.currentTotalBalance,
+            persentOfFortune: action.basketElement.persentOfFortune
+          }
+        case DELETE_TO_BASKET:
+          const newShoppingBasket = {...state.shoppingBasket};
+          delete newShoppingBasket[action.deletedBasketElement.id]
+          return {
+            ...state,
+            shoppingBasket: newShoppingBasket
           };
         default:
           {

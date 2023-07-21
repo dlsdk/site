@@ -1,0 +1,21 @@
+.receiptHeader{
+    font-weight: bold;
+    color: black;
+    margin-bottom: 1rem;
+}
+.info{
+    font-size:1.2rem;
+}
+.totalInfo{
+ text-decoration: underline;
+ text-decoration-thickness: 2px;
+ font-size: 1.2rem;
+}
+.printbutton{
+    background-color: rgba(83, 90, 95, 1)!important;
+    border:rgba(83, 90, 95, 1)!important;
+    color: white!important;
+    margin: 2rem!important;
+    padding: 0.8rem 1.5rem!important;
+    font-size: 1rem!important;
+}

@@ -1,0 +1,28 @@
+
+nav{
+    height: fit-content;
+    padding: 1.1rem;
+    position: sticky!important;
+    background: linear-gradient( 0deg, rgba(104, 113, 120, 1) 0%, rgba(83, 90, 95, 1) 100% );
+    top:0;
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    z-index: 2;
+}
+
+.navp{
+    margin:0;
+    font-size:1.5rem;
+}
+.navpe{
+    margin:0;
+    font-size:1.5rem;
+    margin-left: 3rem;
+}
+
+.navdiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}

@@ -2,17 +2,38 @@ import {createSelector} from "reselect"
 
 const selectProducts = (state) => state.totalreducer;
 
+
 export const selectProductList = createSelector(
     [selectProducts],
     (products) => products.productsList
 )
 
-export const selecttotalPrice = createSelector(
+export const selectcurrentTotalBalance = createSelector(
     [selectProducts],
-    (products) => products.totalPrice
+    (products) => products.currentTotalBalance
 )
 
-export const selectPersent = createSelector(
+export const selectpersentOfFortune = createSelector(
     [selectProducts],
-    (products) => products.persent
+    (products) => products.persentOfFortune
 )
+
+export const selectShoppingBasket = createSelector(
+    [selectProducts],
+    (products) => products.shoppingBasket
+)
+
+export const selectFortuneStatus = createSelector(
+    [selectProducts],
+    (products) => products.isFortuneFinish
+)
+
+export const selectUserShoppingStatus = createSelector(
+    [selectProducts],
+    (products) => products.isUserStartShopping
+)
+
+export const selectTotalFortune = createSelector(
+    [selectProducts],
+    (products) => products.totalFortune
+) 

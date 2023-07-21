@@ -1,23 +1,50 @@
-import totoalActionType from "../actiontypes";
+import ActionTypes from "../actiontypes"
 
-const INCREASE_DECREASE=(val) => {
+const {
+    total: {ADD_TO_BASKET,ADD_TO_TOTAL,PERSENT_OF_FORTUNE,BUY_SELL,FORTUNE_STATUS,DELETE_TO_BASKET},
+} = ActionTypes
+
+const buyAndSell=(payload) => {
     return {
-        type:totoalActionType.total.INCREASE_DECREASE, payload:val
+        type:BUY_SELL,
+        payload
     }
 }
 
-const ADD_TO_TOTAL=(val) => {
+const FortuneFinishStatus = (fortuneStatus) => {
     return {
-        type:totoalActionType.total.ADD_TO_TOTAL, payload:val
+        type:FORTUNE_STATUS,
+        fortuneStatus
+    }
+}
+
+const addToBasket = (basketElement) => {
+    return {
+        type:ADD_TO_BASKET,
+        basketElement
     }
 } 
 
-const PERSENT=(val) => {
+const addToTotal=(payload) => {
     return {
-        type:totoalActionType.total.PERSENT, payload:val
+        type:ADD_TO_TOTAL,
+        payload
+    }
+} 
+
+const updatepersentOfFortune=(persentOfFortune) => {
+    return {
+        type:PERSENT_OF_FORTUNE,
+        persentOfFortune
     }
 }
 
+const deleteFromShoppingBasket=(deletedBasketElement) => {
+    return {
+        type:DELETE_TO_BASKET,
+        deletedBasketElement
+    }
+}
 
-const totalActions = {INCREASE_DECREASE,ADD_TO_TOTAL,PERSENT};
+const totalActions = {buyAndSell,updatepersentOfFortune,addToTotal,addToBasket,FortuneFinishStatus,deleteFromShoppingBasket};
 export default totalActions;
