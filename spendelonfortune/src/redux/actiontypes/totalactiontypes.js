@@ -1,5 +1,3 @@
-export const INCREASE_DECREASE = "INCREASE_DECREASE";
-export const ADD_TO_TOTAL = "ADD_TO_TOTAL";
 export const PERSENT_OF_FORTUNE = "PERSENT_OF_FORTUNE";
 export const ADD_TO_BASKET = "ADD_TO_BASKET"
 export const BUY_SELL = "BUY_SELL"

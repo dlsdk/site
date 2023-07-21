@@ -2,7 +2,7 @@ import React from 'react'
 import selectors from '../../redux/selectors'
 import { useSelector,useDispatch } from 'react-redux'
 import style from "./ProductCards.module.css"
-import helpers from '../helper'
+import helpers from '../../helper'
 import Actions from '../../redux/actions'
 
 const {
@@ -10,12 +10,7 @@ const {
 } = helpers
   
 const {
-    productSelectors: { selectcurrentTotalBalance,
-        selectFortuneStatus,
-        selectProductList,
-        selectShoppingBasket,
-        selectTotalFortune
-    }
+    productSelectors: {selectcurrentTotalBalance,selectFortuneStatus,selectProductList,selectShoppingBasket,selectTotalFortune}
 } = selectors
 
 const {
@@ -35,15 +30,22 @@ export default function ProductCards() {
     const totalFortune = useSelector(selectTotalFortune);
 
     const updateShoppingBasketElementValues = (taken,id,newPersentOfFortune,possibleTotalBalance) => {
-        const payload = {
+        dispatch(buyAndSell({
             id,
             taken,
             currentTotalBalance : possibleTotalBalance,
             persentOfFortune : newPersentOfFortune
-        }
-        dispatch(buyAndSell(payload));
+        }));
     }
-
+      
+    const getNewPersentOfFortune = (possibleTotalBalance) => {
+        return ((totalFortune - possibleTotalBalance)/totalFortune) * 100;
+    }
+    
+    const checkIsBasketElement = (product) => {
+        return shoppingBasket.find(item => item.id === product.id);
+    }
+    
     const getTakenQuantity = (product) => {
         const shoppingBasketElement = checkIsBasketElement(product);
         let quatity = 0;
@@ -51,15 +53,7 @@ export default function ProductCards() {
             quatity = shoppingBasketElement.taken
         return quatity;
     }
-    
-    const checkIsBasketElement = (product) => {
-        return shoppingBasket.find(item => item.id === product.id);
-    }
 
-    const getNewPersentOfFortune = (possibleTotalBalance) => {
-        return ((totalFortune - possibleTotalBalance)/totalFortune) * 100;;
-    }
-    
     const sell = (product) => {
         const possibleTotalBalance = currentTotalBalance + product.unitPrice;
         if (possibleTotalBalance <= totalFortune)
@@ -73,7 +67,7 @@ export default function ProductCards() {
                 }
         }
     }
-  
+    
     const buy = (product) => {
         const possibleTotalBalance = currentTotalBalance - product.unitPrice;
         if (possibleTotalBalance > 0){

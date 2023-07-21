@@ -3,7 +3,6 @@ import products from "../products_list";
 
 const {FORTUNE_FINISHED,BUY_SELL,ADD_TO_BASKET,DELETE_TO_BASKET} = totoalActionType.total;
 
-
 const totalreducer = (state=products,action) =>{
     switch (action.type) {
         case BUY_SELL:

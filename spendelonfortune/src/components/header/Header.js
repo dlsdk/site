@@ -1,6 +1,6 @@
-import style from "./Head.module.css"
+import style from "./Header.module.css"
 
-const Head = () => {
+const Header = () => {
     return (
         <div className={style.con}>
             <div className="d-flex justify-content-center align-items-center" >
@@ -19,4 +19,4 @@ const Head = () => {
     );
 }
 
-export default Head;
+export default Header;

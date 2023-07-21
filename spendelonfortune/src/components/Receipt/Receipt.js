@@ -2,14 +2,10 @@ import React from 'react'
 import style from "./Receipt.module.css"
 import { useSelector } from "react-redux"
 import selectors from "../../redux/selectors";
-import helpers from "../helper";
+import helpers from "../../helper";
 
 const {
-    productSelectors: { selectcurrentTotalBalance,
-        selectShoppingBasket,
-        selectUserShoppingStatus,
-        selectTotalFortune
-    }
+    productSelectors: { selectcurrentTotalBalance,selectShoppingBasket,selectUserShoppingStatus,selectTotalFortune}
 } = selectors
 
 const {

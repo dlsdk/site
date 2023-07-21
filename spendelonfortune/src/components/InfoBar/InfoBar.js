@@ -2,20 +2,14 @@ import React from 'react'
 import selectors from '../../redux/selectors'
 import { useSelector } from 'react-redux'
 import style from "./InfoBar.module.css"
-import helpers from '../helper'
+import helpers from '../../helper'
   
 const {
-    productSelectors: {selectpersentOfFortune,
-        selectcurrentTotalBalance,
-        selectFortuneStatus,
-        selectUserShoppingStatus
-    }
+    productSelectors: { selectpersentOfFortune, selectcurrentTotalBalance, selectFortuneStatus,selectUserShoppingStatus }
 } = selectors
 
 const {
-    helperFunctions: {formatNumberWithComma,
-        toFixedVal
-    }
+    helperFunctions: { formatNumberWithComma,toFixedVal }
 } = helpers
 
 export default function InfoBar() {
@@ -26,14 +20,12 @@ export default function InfoBar() {
   const persentOfFortune = useSelector(selectpersentOfFortune);
 
   const getPersentOfFortuneText = () => {
-    let text = '';
     if (isUserStartShopping){
-        text = `You only spent ${toFixedVal(persentOfFortune)}  % of the total!`;
+        return `You only spent ${toFixedVal(persentOfFortune)}  % of the total!`;
     }
     else {
-         text = "You haven't spent a single dollar! start buying!"
+         return  "You haven't spent a single dollar! start buying!"
     }
-    return text;
 }
   return (
     <nav className="row">
@@ -44,8 +36,8 @@ export default function InfoBar() {
                     <p className={style.navpe}>Sell something!</p>
                 </> :
                 <>
-                <p className={style.navp}>Remaining: ${formatNumberWithComma(currentTotalBalance)}  USD</p>
-                <p className={style.navpe}>{getPersentOfFortuneText()}</p>
+                    <p className={style.navp}>Remaining: ${formatNumberWithComma(currentTotalBalance)}  USD</p>
+                    <p className={style.navpe}>{getPersentOfFortuneText()}</p>
                 </>
             }
         </div>
