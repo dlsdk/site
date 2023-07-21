@@ -98,15 +98,15 @@ export default function ProductCards() {
     }
 
     return (
-        <div className={`${style.products}`}>
+        <div className={style.products}>
             {productsList.map((products,index) => (
                 <div key={index} className={`card ${style.card}`}>
                     <img  className={style.img} src={products.imgSrc} alt="productimage"/>
                     <div className={`card-body ${style.cardb}`}>
-                        <p className={` ${style.p}`}>{products.name}</p>
-                        <span className={` ${style.sp}`}> USD {formatNumberWithComma(products.unitPrice)}</span>
+                        <p className={style.p}>{products.name}</p>
+                        <span className={style.sp}> USD {formatNumberWithComma(products.unitPrice)}</span>
                     </div>
-                      <div className={`${style.cardbuttonsdiv}`}>
+                      <div className={style.cardbuttonsdiv}>
                        <button className={`btn btn-primary btn-md ${style.buttonSell}`} disabled={getTakenQuantity(products) === 0} onClick={() => sell(products)}>Sell</button>
                         <p className={style.buttonsp}>{getTakenQuantity(products)}</p>
                         <button className={`btn btn-primary btn-md ${style.buttonBuy}`} disabled={isFortuneFinish} onClick={() => buy(products)}>Buy</button>
