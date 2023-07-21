@@ -88,7 +88,7 @@ export default function ProductCards() {
                     ...product, 
                     taken: 1, 
                     currentTotalBalance: possibleTotalBalance, 
-                    persentOfFortune:newPersentOfFortune
+                    persentOfFortune: newPersentOfFortune
                 }));
             }
         }
