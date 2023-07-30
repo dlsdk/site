@@ -2,28 +2,19 @@ import React from 'react'
 import selectors from '../../redux/selectors'
 import { useSelector,useDispatch } from 'react-redux'
 import style from "./ProductCards.module.css"
-import helpers from '../../helper'
 import Actions from '../../redux/actions'
+import Card from '../card/Card'
 
 const {
-    helperFunctions: {formatNumberWithComma}
-} = helpers
-  
-const {
-    productSelectors: {selectcurrentTotalBalance,selectFortuneStatus,selectProductList,selectShoppingBasket,selectTotalFortune}
+    productSelectors: {selectcurrentTotalBalance,selectProductList,selectShoppingBasket,selectTotalFortune}
 } = selectors
 
 const {
-    totalActions: {buyAndSell,
-        addToBasket,
-        FortuneFinish,
-        deleteFromShoppingBasket
-    }
+    totalActions: { buyAndSell,addToBasket,FortuneFinish,deleteFromShoppingBasket }
 } = Actions
 
 export default function ProductCards() {
     const dispatch = useDispatch();
-    const isFortuneFinish = useSelector(selectFortuneStatus);
     const productsList = useSelector(selectProductList);
     const currentTotalBalance = useSelector(selectcurrentTotalBalance);
     const shoppingBasket = useSelector(selectShoppingBasket);
@@ -80,7 +71,7 @@ export default function ProductCards() {
             else{
                 dispatch(addToBasket({
                     ...product, 
-                    taken: 1, 
+                    taken: 1,
                     currentTotalBalance: possibleTotalBalance, 
                     persentOfFortune: newPersentOfFortune
                 }));
@@ -94,18 +85,7 @@ export default function ProductCards() {
     return (
         <div className={style.products}>
             {productsList.map((products,index) => (
-                <div key={index} className={`card ${style.card}`}>
-                    <img  className={style.img} src={products.imgSrc} alt="productimage"/>
-                    <div className={`card-body ${style.cardb}`}>
-                        <p className={style.p}>{products.name}</p>
-                        <span className={style.sp}> USD {formatNumberWithComma(products.unitPrice)}</span>
-                    </div>
-                      <div className={style.cardbuttonsdiv}>
-                       <button className={`btn btn-primary btn-md ${style.buttonSell}`} disabled={getTakenQuantity(products) === 0} onClick={() => sell(products)}>Sell</button>
-                        <p className={style.buttonsp}>{getTakenQuantity(products)}</p>
-                        <button className={`btn btn-primary btn-md ${style.buttonBuy}`} disabled={isFortuneFinish} onClick={() => buy(products)}>Buy</button>
-                    </div>
-                </div>  
+               <Card index={index} products={products} getTakenQuantity={getTakenQuantity} buy={buy} sell={sell} />
             ))} 
         </div>
     )
